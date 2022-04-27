@@ -13,7 +13,18 @@ public class NematodeVisualiser extends PApplet {
 
 	public void keyPressed() {
 		if (keyCode == LEFT) {
-			mode = mode + 1;
+			if (mode > 0) {
+				mode = mode - 1;
+			}
+
+		}
+		if (keyCode == RIGHT)
+
+		{
+			if (mode < 12) {
+				mode = mode + 1;
+			}
+
 		}
 	}
 
@@ -38,6 +49,7 @@ public class NematodeVisualiser extends PApplet {
 			Nematode t = new Nematode(row);
 			Nematodes.add(t);
 		}
+
 	}
 
 	public void printNematodes() {
@@ -59,72 +71,46 @@ public class NematodeVisualiser extends PApplet {
 		line(width - 100, halfH, width - 150, halfH - 50);
 	}
 
+	public void drawNematodes(int x) {
+		float halfW = width / 2;
+		float halfH = height / 2;
+		String name = Nematodes.get(x).getName();
+		int Length = Nematodes.get(x).getLength();
+		String limbs = Nematodes.get(x).getLimbs();
+		String gender = Nematodes.get(x).getGender();
+		// System.out.println(limbs.indexOf("1"));
+
+		noFill();
+		textSize(20);
+		textAlign(CENTER);
+		text(name, halfW, 200);
+
+		for (int i = 0; i < Length; i++) {
+			circle(halfW, halfH + ((Length - 3) * 50) - i * 50, 50);
+		}
+		// Check Limbs
+		if (limbs.indexOf("1") == 0) {
+			for (int i = 0; i < Length; i++) {
+				line(halfW + 25, halfH + ((Length - 3) * 50) - i * 50, halfW + 50,
+						halfH + ((Length - 3) * 50) - i * 50);
+				line(halfW - 25, halfH + ((Length - 3) * 50) - i * 50, halfW - 50,
+						halfH + ((Length - 3) * 50) - i * 50);
+			}
+		}
+		if (gender.indexOf("f") == 0) {
+			circle(halfW, halfH + ((Length - 3) * 50), 25);
+		}
+
+	}
+
 	public void draw() {
 
-		arrow();
 		strokeWeight(5);
-		switch (mode)
-		{
-			case 0: {
+		stroke(144, 86, 97);
 
-				break;
-			}
-			case 1: {
-
-				break;
-			}
-			case 2: {
-
-				break;
-			}
-			case 3: {
-
-				break;
-			}
-			case 4: {
-
-				break;
-			}
-			case 5: {
-
-				break;
-			}
-			case 6: {
-
-				break;
-			}
-			case 7: {
-
-				break;
-			}
-			case 8: {
-
-				break;
-			}
-			case 9: {
-
-				break;
-			}
-			case 10: {
-
-				break;
-			}
-			case 11: {
-
-				break;
-			}
-			case 12: {
-
-				break;
-			}
-			case 13: {
-
-				break;
-			}
-
-			default:
-				break;
-		}
+		background(0);
+		arrow();
+		drawNematodes(mode);
 
 	}
 }
