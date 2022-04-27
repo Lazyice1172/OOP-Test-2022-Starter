@@ -79,26 +79,25 @@ public class NematodeVisualiser extends PApplet {
 		String limbs = Nematodes.get(mode).getLimbs();
 		String gender = Nematodes.get(mode).getGender();
 		String eyes = Nematodes.get(mode).getEyes();
-		// System.out.println(limbs.indexOf("1"));
+
+		float LocationY = halfH + ((Length - 3) * 50);
 
 		noFill();
-
 		// Name
 		textSize(32);
 		textAlign(CENTER);
 		text(name, halfW, 200);
 
-		// Length
+		// Draw Length
 		for (int i = 0; i < Length; i++) {
-			circle(halfW, halfH + ((Length - 3) * 50) - i * 50, 50);
+			circle(halfW, LocationY - i * 50, 50);
 		}
 		// Check Limbs
 		if (limbs.indexOf("1") == 0) {
+			// Draw Limbs
 			for (int i = 0; i < Length; i++) {
-				line(halfW + 25, halfH + ((Length - 3) * 50) - i * 50, halfW + 50,
-						halfH + ((Length - 3) * 50) - i * 50);
-				line(halfW - 25, halfH + ((Length - 3) * 50) - i * 50, halfW - 50,
-						halfH + ((Length - 3) * 50) - i * 50);
+				line(halfW + 25, LocationY - i * 50, halfW + 50, LocationY - i * 50);
+				line(halfW - 25, LocationY - i * 50, halfW - 50, LocationY - i * 50);
 			}
 		}
 
@@ -109,17 +108,18 @@ public class NematodeVisualiser extends PApplet {
 			float y;
 			float ex;
 			float ey;
+
+			// Left eye
 			x = halfW + sin(30) * radius;
 			y = halfH + ((Length - 2) * 50) - Length * 50 + sin(30) * radius;
-			;
 			ex = x + sin(30) * 30;
 			ey = y + sin(30) * 30;
 			line(x, y, ex, ey);
 			circle(ex - 5, ey - 5, 15);
 
+			// Right eye
 			x = halfW + sin(-30) * radius;
 			y = halfH + ((Length - 2) * 50) - Length * 50 + sin(30) * radius;
-			;
 			ex = x + sin(-30) * 30;
 			ey = y + sin(30) * 30;
 			line(x, y, ex, ey);
@@ -129,27 +129,28 @@ public class NematodeVisualiser extends PApplet {
 
 		// Check Gender
 		if (gender.indexOf("m") == 0) {
-			line(halfW, halfH + ((Length - 3) * 50) + 25, halfW, halfH + ((Length - 3) * 50) + 50);
-			circle(halfW, halfH + ((Length - 3) * 50) + 55, 10);
+			line(halfW, LocationY + 25, halfW, LocationY + 50);
+			circle(halfW, LocationY + 55, 10);
 		} else if (gender.indexOf("f") == 0) {
-			circle(halfW, halfH + ((Length - 3) * 50), 25);
+			circle(halfW, LocationY, 25);
 		} else if (gender.indexOf("h") == 0) {
-			circle(halfW, halfH + ((Length - 3) * 50), 25);
-			line(halfW, halfH + ((Length - 3) * 50) + 25, halfW, halfH + ((Length - 3) * 50) + 50);
-			circle(halfW, halfH + ((Length - 3) * 50) + 55, 10);
+			circle(halfW, LocationY, 25);
+			line(halfW, LocationY + 25, halfW, LocationY + 50);
+			circle(halfW, LocationY + 55, 10);
 		}
 
 	}
 
 	public void draw() {
-
+		// Setup
+		background(0);
 		strokeWeight(5);
 		float c = map(mode, 0, 13, 0, 255);
 		color(c, 255, 255);
 		stroke(c, 255, 255);
 		fill(c, 255, 255);
 
-		background(0);
+		// Function
 		arrow();
 		drawNematodes();
 
